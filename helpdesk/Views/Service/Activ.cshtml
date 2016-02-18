@@ -1,0 +1,50 @@
+﻿@model helpdesk.Models.Activ
+@using helpdesk.Models
+
+<h2>Справочник по Кабинетам</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Новый кабинет</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CabNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CabNumber)
+            @Html.ValidationMessageFor(model => model.CabNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DepartmentId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.DepartmentId, ViewBag.Departments as SelectList)
+            @Html.ValidationMessageFor(model => model.DepartmentId)
+        </div>
+
+        <p><input type="submit" value="Учесть" /></p>
+    </fieldset>
+}
+<br />
+@{ int i = 1;}
+    <table>
+        @foreach (Activ item in ViewBag.Activs)
+        {
+            <tr>
+                <td>@i</td>
+                
+                <td>@item.Department.Name</td>
+                <td>@item.CabNumber</td>
+                <td>
+                    @Html.ActionLink("Удалить", "DeleteActiv", new { id = item.Id })
+                </td>
+
+            </tr>
+            i++;
+        }
+    </table>
+
+
+
